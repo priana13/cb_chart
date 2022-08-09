@@ -342,6 +342,18 @@
 			$data['gender'] = Karyawan::select(['gender' , DB::raw('count(*) as qty')])
 								->groupBy('gender')->pluck('qty' , 'gender');
 
+			$data['umur'] = collect([
+				'17-20' => Karyawan::where('umur', '>=' , 17)->where('umur' , '<' , 21)->count(),
+				'21-25' => Karyawan::where('umur', '>=' , 21)->where('umur' , '<' , 26)->count(),
+				'26-30' => Karyawan::where('umur', '>=' , 26)->where('umur' , '<' , 31)->count(),
+				'31-35' => Karyawan::where('umur', '>=' , 31)->where('umur' , '<' , 36)->count(),
+				'36-40' => Karyawan::where('umur', '>=' , 36)->where('umur' , '<' , 41)->count(),
+				'41-45' => Karyawan::where('umur', '>=' , 41)->where('umur' , '<' , 46)->count(),
+				'46-50' => Karyawan::where('umur', '>=' , 46)->where('umur' , '<' , 51)->count()
+			]);	
+			
+			
+
 
 			return $this->view('karyawan.chart' , $data);
 		}
