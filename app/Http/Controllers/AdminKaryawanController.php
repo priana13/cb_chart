@@ -326,6 +326,14 @@
 
 	    }
 
+		public function getChart(){
+
+
+			$data['page-title'] = "Chart Karyawan";
+
+			return $this->view('karyawan.chart' , $data);
+		}
+
 
 
 	    //By the way, you can still create your own method in here... :) 
