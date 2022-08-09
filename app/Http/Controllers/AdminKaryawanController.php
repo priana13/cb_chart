@@ -4,6 +4,7 @@
 	use Request;
 	use DB;
 	use CRUDBooster;
+	use App\Models\Karyawan;
 
 	class AdminKaryawanController extends \crocodicstudio\crudbooster\controllers\CBController {
 
@@ -329,7 +330,18 @@
 		public function getChart(){
 
 
-			$data['page-title'] = "Chart Karyawan";
+			$data['page_title'] = "Chart Karyawan";
+
+			$karyawan = Karyawan::select(['pendidikan' , DB::raw('count(*) as qty')])
+									->groupBy('pendidikan')->get();
+			
+			$data['pendidikan'] = $karyawan->pluck('pendidikan');
+			$data['qty_pendidikan'] = $karyawan->pluck('qty');
+
+
+			$data['gender'] = Karyawan::select(['gender' , DB::raw('count(*) as qty')])
+								->groupBy('gender')->pluck('qty' , 'gender');
+
 
 			return $this->view('karyawan.chart' , $data);
 		}
